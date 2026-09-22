@@ -1,0 +1,1878 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Regalos & Detalles | Catálogo Digital</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+color:#292929;
+min-height:100vh;
+background:#f5f0ed;
+}
+
+/* FONDO */
+
+body::before{
+content:"";
+position:fixed;
+inset:0;
+background:
+linear-gradient(#211a1ad9,#211a1ad9),
+url("images/fondo-regalos.jpg") center/cover no-repeat fixed;
+z-index:-2;
+}
+
+body::after{
+content:"";
+position:fixed;
+inset:0;
+background:linear-gradient(
+135deg,
+#00000015,
+#ffffff08
+);
+z-index:-1;
+pointer-events:none;
+}
+
+
+/* HEADER */
+
+header{
+background:#211a1af2;
+color:#fff;
+padding:28px 20px;
+border-bottom:1px solid #c89b78;
+position:sticky;
+top:0;
+z-index:500;
+}
+
+.header-contenido{
+max-width:1200px;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
+}
+
+.marca h1{
+font-family:Georgia,serif;
+font-size:28px;
+letter-spacing:1px;
+}
+
+.marca p{
+margin-top:5px;
+color:#d9c1b5;
+font-size:13px;
+}
+
+.btn-carrito{
+border:1px solid #d1a98b;
+background:#302625;
+color:#fff;
+padding:12px 18px;
+border-radius:25px;
+cursor:pointer;
+font-size:15px;
+font-weight:bold;
+transition:.3s;
+}
+
+.btn-carrito:hover{
+background:#a96f4d;
+}
+
+
+/* HERO */
+
+.hero{
+max-width:1200px;
+margin:30px auto 20px;
+padding:45px 25px;
+background:
+linear-gradient(#211a1ad9,#211a1ad9),
+url("images/hero-regalos.jpg") center/cover;
+border-radius:18px;
+color:#fff;
+border:1px solid #c89b78;
+box-shadow:0 10px 30px #0006;
+}
+
+.hero h2{
+font-family:Georgia,serif;
+font-size:35px;
+margin-bottom:10px;
+}
+
+.hero p{
+max-width:700px;
+color:#ddd;
+line-height:1.6;
+}
+
+
+/* CATEGORIAS */
+
+.categorias{
+max-width:1200px;
+margin:25px auto;
+padding:0 20px;
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.categoria-btn{
+background:#29201f;
+color:#fff;
+border:1px solid #bd9274;
+padding:10px 18px;
+border-radius:20px;
+cursor:pointer;
+transition:.3s;
+}
+
+.categoria-btn:hover,
+.categoria-btn.activa{
+background:#a96f4d;
+}
+
+
+/* CATALOGO */
+
+.catalogo{
+max-width:1200px;
+margin:auto;
+padding:10px 20px 60px;
+}
+
+.titulo-seccion{
+color:#fff;
+font-family:Georgia,serif;
+font-size:27px;
+margin:25px 0 18px;
+}
+
+
+/* PRODUCTOS HORIZONTALES */
+
+.productos{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.producto{
+display:flex;
+align-items:center;
+background:#ffffffee;
+border-radius:12px;
+overflow:hidden;
+min-height:120px;
+cursor:pointer;
+border:1px solid #ddd;
+box-shadow:0 5px 18px #0003;
+transition:.3s;
+}
+
+.producto:hover{
+transform:translateX(4px);
+border-color:#c89b78;
+box-shadow:0 8px 24px #0005;
+}
+
+.producto img{
+width:135px;
+height:120px;
+object-fit:cover;
+flex-shrink:0;
+}
+
+.producto-info{
+padding:15px 18px;
+flex:1;
+}
+
+.producto-info h3{
+font-size:19px;
+margin-bottom:6px;
+}
+
+.producto-info p{
+color:#666;
+font-size:13px;
+line-height:1.4;
+}
+
+.precios{
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+margin-top:9px;
+}
+
+.precio-mayoreo{
+color:#995f3e;
+font-weight:bold;
+}
+
+.precio-menudeo{
+color:#333;
+font-weight:bold;
+}
+
+.producto-flecha{
+padding:20px;
+font-size:25px;
+color:#a96f4d;
+}
+
+
+/* MODAL PRODUCTO */
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:#000b;
+z-index:2000;
+padding:20px;
+overflow:auto;
+}
+
+.modal-producto{
+max-width:850px;
+margin:4% auto;
+background:#fff;
+border-radius:18px;
+overflow:hidden;
+position:relative;
+box-shadow:0 15px 50px #0008;
+}
+
+.cerrar{
+position:absolute;
+right:15px;
+top:10px;
+font-size:32px;
+color:#fff;
+z-index:5;
+cursor:pointer;
+background:#0008;
+width:42px;
+height:42px;
+border-radius:50%;
+text-align:center;
+line-height:38px;
+}
+
+.detalle{
+display:grid;
+grid-template-columns:1fr 1fr;
+}
+
+.detalle img{
+width:100%;
+height:430px;
+object-fit:cover;
+}
+
+.detalle-info{
+padding:30px;
+}
+
+.detalle-info h2{
+font-family:Georgia,serif;
+font-size:28px;
+margin-bottom:12px;
+}
+
+.detalle-descripcion{
+color:#666;
+line-height:1.6;
+margin-bottom:20px;
+}
+
+.precio-box{
+background:#f6f0ed;
+padding:15px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+.precio-box div{
+margin:7px 0;
+}
+
+.precio-box strong{
+color:#995f3e;
+}
+
+.cantidad{
+display:flex;
+align-items:center;
+gap:10px;
+margin:20px 0;
+}
+
+.cantidad button{
+width:35px;
+height:35px;
+border:0;
+border-radius:50%;
+background:#29201f;
+color:#fff;
+cursor:pointer;
+font-size:18px;
+}
+
+.cantidad span{
+min-width:35px;
+text-align:center;
+font-weight:bold;
+}
+
+.agregar{
+width:100%;
+border:0;
+padding:14px;
+background:#a96f4d;
+color:#fff;
+border-radius:8px;
+cursor:pointer;
+font-size:16px;
+font-weight:bold;
+}
+
+.agregar:hover{
+background:#814e37;
+}
+
+
+/* CARRITO */
+
+.carrito{
+position:fixed;
+right:-430px;
+top:0;
+width:400px;
+max-width:92%;
+height:100vh;
+background:#fff;
+z-index:3000;
+box-shadow:-10px 0 35px #0006;
+transition:.35s;
+display:flex;
+flex-direction:column;
+}
+
+.carrito.abierto{
+right:0;
+}
+
+.carrito-header{
+background:#211a1a;
+color:#fff;
+padding:22px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.carrito-header h2{
+font-family:Georgia,serif;
+}
+
+.cerrar-carrito{
+font-size:27px;
+cursor:pointer;
+}
+
+.carrito-items{
+flex:1;
+overflow:auto;
+padding:15px;
+}
+
+.carrito-item{
+border-bottom:1px solid #ddd;
+padding:14px 0;
+}
+
+.carrito-item h4{
+margin-bottom:6px;
+}
+
+.carrito-item small{
+color:#777;
+}
+
+.item-controles{
+display:flex;
+align-items:center;
+gap:8px;
+margin-top:9px;
+}
+
+.item-controles button{
+border:0;
+background:#29201f;
+color:#fff;
+width:28px;
+height:28px;
+border-radius:50%;
+cursor:pointer;
+}
+
+.eliminar{
+margin-left:auto;
+background:#a33!important;
+}
+
+.carrito-footer{
+padding:20px;
+border-top:1px solid #ddd;
+}
+
+.total{
+display:flex;
+justify-content:space-between;
+font-size:21px;
+font-weight:bold;
+margin-bottom:15px;
+}
+
+.btn-revisar{
+width:100%;
+padding:14px;
+background:#25d366;
+color:#fff;
+border:0;
+border-radius:8px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+
+/* CHECKOUT */
+
+.checkout{
+display:none;
+position:fixed;
+inset:0;
+background:#000b;
+z-index:4000;
+padding:20px;
+overflow:auto;
+}
+
+.checkout-box{
+max-width:600px;
+margin:4% auto;
+background:#fff;
+border-radius:18px;
+padding:28px;
+}
+
+.checkout-box h2{
+font-family:Georgia,serif;
+margin-bottom:20px;
+}
+
+.resumen{
+background:#f5f0ed;
+padding:15px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+.resumen-linea{
+display:flex;
+justify-content:space-between;
+padding:7px 0;
+border-bottom:1px solid #ddd;
+}
+
+.formulario label{
+display:block;
+margin-top:13px;
+font-weight:bold;
+}
+
+.formulario input,
+.formulario textarea{
+width:100%;
+padding:12px;
+margin-top:5px;
+border:1px solid #ccc;
+border-radius:8px;
+font-family:Arial;
+}
+
+.formulario textarea{
+min-height:90px;
+resize:vertical;
+}
+
+.btn-enviar{
+width:100%;
+margin-top:20px;
+padding:15px;
+background:#25d366;
+border:0;
+color:#fff;
+border-radius:8px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.btn-cerrar-checkout{
+width:100%;
+margin-top:10px;
+padding:12px;
+background:#29201f;
+color:#fff;
+border:0;
+border-radius:8px;
+cursor:pointer;
+}
+
+
+/* MÚSICA */
+
+.boton-musica{
+position:fixed;
+left:18px;
+bottom:18px;
+z-index:5000;
+background:#29201f;
+color:#fff;
+border:1px solid #d1a98b;
+border-radius:30px;
+padding:11px 17px;
+cursor:pointer;
+font-weight:bold;
+box-shadow:0 5px 18px #0005;
+}
+
+.boton-musica.activo{
+background:#a96f4d;
+}
+
+
+/* FOOTER */
+
+footer{
+background:#211a1af5;
+color:#fff;
+text-align:center;
+padding:35px 20px;
+border-top:1px solid #bd9274;
+}
+
+footer h3{
+font-family:Georgia,serif;
+margin-bottom:8px;
+}
+
+footer p{
+color:#bbb;
+font-size:13px;
+margin:5px;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:700px){
+
+.header-contenido{
+flex-direction:column;
+text-align:center;
+}
+
+.producto img{
+width:105px;
+height:105px;
+}
+
+.producto-info{
+padding:12px;
+}
+
+.producto-info h3{
+font-size:16px;
+}
+
+.producto-flecha{
+display:none;
+}
+
+.detalle{
+grid-template-columns:1fr;
+}
+
+.detalle img{
+height:300px;
+}
+
+.detalle-info{
+padding:22px;
+}
+
+.carrito{
+width:100%;
+max-width:100%;
+}
+
+.hero h2{
+font-size:28px;
+}
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+<div class="header-contenido">
+
+<div class="marca">
+
+<h1>REGALOS & DETALLES</h1>
+
+<p>
+Detalles que hacen especial cada momento
+</p>
+
+</div>
+
+<button
+class="btn-carrito"
+onclick="abrirCarrito()">
+
+🛒 Carrito
+<span id="contador">0</span>
+
+</button>
+
+</div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<h2>
+Regalos para cada ocasión
+</h2>
+
+<p>
+
+Tazas, globos con helio, detalles personalizados,
+decoración, regalos para cumpleaños,
+aniversarios, celebraciones y mucho más.
+
+Compra por mayoreo o menudeo.
+
+</p>
+
+</section>
+
+
+<!-- CATEGORIAS -->
+
+<div class="categorias">
+
+<button
+class="categoria-btn activa"
+onclick="filtrar('Todos',this)">
+Todos
+</button>
+
+<button
+class="categoria-btn"
+onclick="filtrar('Tazas',this)">
+Tazas
+</button>
+
+<button
+class="categoria-btn"
+onclick="filtrar('Globos',this)">
+Globos
+</button>
+
+<button
+class="categoria-btn"
+onclick="filtrar('Regalos',this)">
+Regalos
+</button>
+
+<button
+class="categoria-btn"
+onclick="filtrar('Decoración',this)">
+Decoración
+</button>
+
+<button
+class="categoria-btn"
+onclick="filtrar('Personalizados',this)">
+Personalizados
+</button>
+
+</div>
+
+
+<!-- CATALOGO -->
+
+<main class="catalogo">
+
+<h2 class="titulo-seccion">
+Catálogo de productos
+</h2>
+
+<div
+class="productos"
+id="productos">
+</div>
+
+</main>
+
+
+<!-- MODAL PRODUCTO -->
+
+<div
+class="modal"
+id="modalProducto">
+
+<div class="modal-producto">
+
+<span
+class="cerrar"
+onclick="cerrarProducto()">
+
+&times;
+
+</span>
+
+<div class="detalle">
+
+<img
+id="detalleImagen"
+src=""
+alt="Producto">
+
+<div class="detalle-info">
+
+<h2 id="detalleNombre"></h2>
+
+<p
+class="detalle-descripcion"
+id="detalleDescripcion">
+</p>
+
+<div class="precio-box">
+
+<div>
+Precio menudeo:
+<strong id="detalleMenudeo"></strong>
+</div>
+
+<div>
+Precio mayoreo:
+<strong id="detalleMayoreo"></strong>
+</div>
+
+</div>
+
+<div class="cantidad">
+
+<button onclick="cambiarCantidad(-1)">
+−
+</button>
+
+<span id="cantidadDetalle">
+1
+</span>
+
+<button onclick="cambiarCantidad(1)">
++
+</button>
+
+</div>
+
+<button
+class="agregar"
+onclick="agregarDesdeDetalle()">
+
+🛒 AGREGAR AL CARRITO
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- CARRITO -->
+
+<aside
+class="carrito"
+id="carrito">
+
+<div class="carrito-header">
+
+<h2>
+Mi pedido
+</h2>
+
+<span
+class="cerrar-carrito"
+onclick="cerrarCarrito()">
+
+&times;
+
+</span>
+
+</div>
+
+
+<div
+class="carrito-items"
+id="carritoItems">
+
+<p style="text-align:center;color:#777;padding:30px">
+
+Tu carrito está vacío.
+
+</p>
+
+</div>
+
+
+<div class="carrito-footer">
+
+<div class="total">
+
+<span>Total:</span>
+
+<span id="total">
+$0 MXN
+</span>
+
+</div>
+
+<button
+class="btn-revisar"
+onclick="abrirCheckout()">
+
+REVISAR PEDIDO
+
+</button>
+
+</div>
+
+</aside>
+
+
+<!-- CHECKOUT -->
+
+<div
+class="checkout"
+id="checkout">
+
+<div class="checkout-box">
+
+<h2>
+Revisar pedido
+</h2>
+
+<div
+class="resumen"
+id="resumen">
+</div>
+
+<form
+class="formulario"
+onsubmit="enviarPedido(event)">
+
+<label>
+Nombre
+</label>
+
+<input
+type="text"
+id="cliente"
+required
+placeholder="Tu nombre">
+
+<label>
+Teléfono
+</label>
+
+<input
+type="tel"
+id="telefono"
+required
+placeholder="Tu teléfono">
+
+<label>
+Observaciones
+</label>
+
+<textarea
+id="observaciones"
+placeholder="Alguna indicación para tu pedido...">
+</textarea>
+
+
+<button
+class="btn-enviar"
+type="submit">
+
+📲 ENVIAR PEDIDO POR WHATSAPP
+
+</button>
+
+</form>
+
+<button
+class="btn-cerrar-checkout"
+onclick="cerrarCheckout()">
+
+Regresar al catálogo
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- MÚSICA -->
+
+<audio
+id="musica"
+loop
+preload="auto">
+
+<source
+src="audio/musica-regalos.mp3"
+type="audio/mpeg">
+
+</audio>
+
+
+<button
+class="boton-musica"
+id="botonMusica"
+onclick="controlarMusica()">
+
+♫ Música
+
+</button>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<h3>
+REGALOS & DETALLES
+</h3>
+
+<p>
+Detalles para cada ocasión.
+</p>
+
+<p>
+Mayoreo • Menudeo • Pedidos por WhatsApp
+</p>
+
+</footer>
+
+
+<script>
+
+
+/* =========================================
+   PRODUCTOS
+   PREPARADOS PARA CRECER HASTA 50+
+========================================= */
+
+const productos=[
+
+{
+id:1,
+categoria:"Tazas",
+nombre:"Taza Personalizada",
+descripcion:"Taza personalizada para cumpleaños, aniversarios y ocasiones especiales.",
+menudeo:120,
+mayoreo:85,
+imagen:"taza-personalizada.jpg"
+},
+
+{
+id:2,
+categoria:"Tazas",
+nombre:"Taza Mágica",
+descripcion:"Taza que revela el diseño al agregar una bebida caliente.",
+menudeo:180,
+mayoreo:135,
+imagen:"taza-magica.jpg"
+},
+
+{
+id:3,
+categoria:"Tazas",
+nombre:"Taza con Diseño Floral",
+descripcion:"Taza decorativa ideal para regalo.",
+menudeo:150,
+mayoreo:110,
+imagen:"taza-floral.jpg"
+},
+
+{
+id:4,
+categoria:"Globos",
+nombre:"Globo de Helio Número",
+descripcion:"Globo metálico con número para cumpleaños y celebraciones.",
+menudeo:180,
+mayoreo:135,
+imagen:"globo-numero.jpg"
+},
+
+{
+id:5,
+categoria:"Globos",
+nombre:"Globo de Helio Corazón",
+descripcion:"Globo metálico en forma de corazón para regalar.",
+menudeo:160,
+mayoreo:120,
+imagen:"globo-corazon.jpg"
+},
+
+{
+id:6,
+categoria:"Globos",
+nombre:"Bouquet de Globos",
+descripcion:"Arreglo de globos para cumpleaños y eventos especiales.",
+menudeo:450,
+mayoreo:350,
+imagen:"bouquet-globos.jpg"
+},
+
+{
+id:7,
+categoria:"Regalos",
+nombre:"Caja de Regalo",
+descripcion:"Caja decorativa lista para preparar un detalle especial.",
+menudeo:250,
+mayoreo:190,
+imagen:"caja-regalo.jpg"
+},
+
+{
+id:8,
+categoria:"Regalos",
+nombre:"Peluche Decorativo",
+descripcion:"Peluche suave ideal para cumpleaños y fechas especiales.",
+menudeo:350,
+mayoreo:270,
+imagen:"peluche.jpg"
+},
+
+{
+id:9,
+categoria:"Regalos",
+nombre:"Set de Regalo",
+descripcion:"Conjunto de productos seleccionado para una ocasión especial.",
+menudeo:480,
+mayoreo:370,
+imagen:"set-regalo.jpg"
+},
+
+{
+id:10,
+categoria:"Regalos",
+nombre:"Vela Aromática",
+descripcion:"Vela decorativa con agradable aroma.",
+menudeo:180,
+mayoreo:130,
+imagen:"vela.jpg"
+},
+
+{
+id:11,
+categoria:"Decoración",
+nombre:"Cortina Metálica",
+descripcion:"Decoración para fiestas y celebraciones.",
+menudeo:120,
+mayoreo:85,
+imagen:"cortina.jpg"
+},
+
+{
+id:12,
+categoria:"Decoración",
+nombre:"Guirnalda Decorativa",
+descripcion:"Guirnalda para decoración de fiestas.",
+menudeo:160,
+mayoreo:115,
+imagen:"guirnalda.jpg"
+},
+
+{
+id:13,
+categoria:"Decoración",
+nombre:"Kit para Cumpleaños",
+descripcion:"Kit decorativo para fiesta de cumpleaños.",
+menudeo:280,
+mayoreo:220,
+imagen:"kit-cumpleanos.jpg"
+},
+
+{
+id:14,
+categoria:"Personalizados",
+nombre:"Playera Personalizada",
+descripcion:"Playera personalizada con diseño elegido por el cliente.",
+menudeo:280,
+mayoreo:220,
+imagen:"playera.jpg"
+},
+
+{
+id:15,
+categoria:"Personalizados",
+nombre:"Termo Personalizado",
+descripcion:"Termo personalizado para regalo o uso personal.",
+menudeo:350,
+mayoreo:280,
+imagen:"termo.jpg"
+},
+
+{
+id:16,
+categoria:"Personalizados",
+nombre:"Llavero Personalizado",
+descripcion:"Llavero personalizado para regalo.",
+menudeo:100,
+mayoreo:70,
+imagen:"llavero.jpg"
+},
+
+{
+id:17,
+categoria:"Globos",
+nombre:"Globo con Frase",
+descripcion:"Globo decorativo con frase para diferentes ocasiones.",
+menudeo:140,
+mayoreo:100,
+imagen:"globo-frase.jpg"
+},
+
+{
+id:18,
+categoria:"Tazas",
+nombre:"Taza para Pareja",
+descripcion:"Taza con diseño especial para parejas.",
+menudeo:220,
+mayoreo:170,
+imagen:"taza-pareja.jpg"
+},
+
+{
+id:19,
+categoria:"Decoración",
+nombre:"Número Decorativo",
+descripcion:"Número decorativo para cumpleaños y aniversarios.",
+menudeo:200,
+mayoreo:150,
+imagen:"numero-decorativo.jpg"
+},
+
+{
+id:20,
+categoria:"Regalos",
+nombre:"Canasta de Regalo",
+descripcion:"Canasta preparada para crear un detalle especial.",
+menudeo:550,
+mayoreo:430,
+imagen:"canasta.jpg"
+}
+
+];
+
+
+/* =========================================
+   VARIABLES
+========================================= */
+
+let carrito=[];
+let productoActual=null;
+let cantidadDetalle=1;
+
+
+/* =========================================
+   MOSTRAR PRODUCTOS
+========================================= */
+
+function mostrarProductos(lista=productos){
+
+const contenedor=
+document.getElementById("productos");
+
+contenedor.innerHTML="";
+
+
+lista.forEach(producto=>{
+
+const div=document.createElement("div");
+
+div.className="producto";
+
+div.onclick=()=>abrirProducto(producto.id);
+
+div.innerHTML=`
+
+<img
+src="images/${producto.imagen}"
+alt="${producto.nombre}">
+
+<div class="producto-info">
+
+<h3>
+${producto.nombre}
+</h3>
+
+<p>
+${producto.descripcion}
+</p>
+
+<div class="precios">
+
+<span class="precio-mayoreo">
+Mayoreo: $${producto.mayoreo.toLocaleString()} MXN
+</span>
+
+<span class="precio-menudeo">
+Menudeo: $${producto.menudeo.toLocaleString()} MXN
+</span>
+
+</div>
+
+</div>
+
+<div class="producto-flecha">
+›
+</div>
+
+`;
+
+contenedor.appendChild(div);
+
+});
+
+}
+
+
+/* =========================================
+   FILTRO
+========================================= */
+
+function filtrar(categoria,boton){
+
+document
+.querySelectorAll(".categoria-btn")
+.forEach(b=>b.classList.remove("activa"));
+
+boton.classList.add("activa");
+
+if(categoria==="Todos"){
+
+mostrarProductos();
+
+}else{
+
+mostrarProductos(
+productos.filter(
+p=>p.categoria===categoria
+)
+);
+
+}
+
+}
+
+
+/* =========================================
+   MODAL PRODUCTO
+========================================= */
+
+function abrirProducto(id){
+
+productoActual=
+productos.find(p=>p.id===id);
+
+cantidadDetalle=1;
+
+document.getElementById(
+"detalleImagen"
+).src=
+"images/"+productoActual.imagen;
+
+document.getElementById(
+"detalleNombre"
+).textContent=
+productoActual.nombre;
+
+document.getElementById(
+"detalleDescripcion"
+).textContent=
+productoActual.descripcion;
+
+document.getElementById(
+"detalleMenudeo"
+).textContent=
+"$"+productoActual.menudeo.toLocaleString()+" MXN";
+
+document.getElementById(
+"detalleMayoreo"
+).textContent=
+"$"+productoActual.mayoreo.toLocaleString()+" MXN";
+
+document.getElementById(
+"cantidadDetalle"
+).textContent=
+cantidadDetalle;
+
+document.getElementById(
+"modalProducto"
+).style.display="block";
+
+}
+
+
+function cerrarProducto(){
+
+document.getElementById(
+"modalProducto"
+).style.display="none";
+
+}
+
+
+function cambiarCantidad(valor){
+
+cantidadDetalle+=valor;
+
+if(cantidadDetalle<1){
+
+cantidadDetalle=1;
+
+}
+
+document.getElementById(
+"cantidadDetalle"
+).textContent=
+cantidadDetalle;
+
+}
+
+
+/* =========================================
+   AGREGAR AL CARRITO
+========================================= */
+
+function agregarDesdeDetalle(){
+
+if(!productoActual)return;
+
+const existente=
+carrito.find(
+item=>item.id===productoActual.id
+);
+
+if(existente){
+
+existente.cantidad+=cantidadDetalle;
+
+}else{
+
+carrito.push({
+
+...productoActual,
+
+cantidad:cantidadDetalle
+
+});
+
+}
+
+cerrarProducto();
+
+actualizarCarrito();
+
+abrirCarrito();
+
+}
+
+
+/* =========================================
+   ACTUALIZAR CARRITO
+========================================= */
+
+function actualizarCarrito(){
+
+const contenedor=
+document.getElementById("carritoItems");
+
+const contador=
+document.getElementById("contador");
+
+let totalCantidad=0;
+let total=0;
+
+
+if(carrito.length===0){
+
+contenedor.innerHTML=`
+
+<p style="
+text-align:center;
+color:#777;
+padding:30px">
+
+Tu carrito está vacío.
+
+</p>
+
+`;
+
+}else{
+
+contenedor.innerHTML="";
+
+
+carrito.forEach(item=>{
+
+totalCantidad+=item.cantidad;
+
+const subtotal=
+item.menudeo*item.cantidad;
+
+total+=subtotal;
+
+
+const div=
+document.createElement("div");
+
+div.className="carrito-item";
+
+div.innerHTML=`
+
+<h4>
+${item.nombre}
+</h4>
+
+<small>
+$${item.menudeo.toLocaleString()} MXN
+por unidad
+</small>
+
+<div class="item-controles">
+
+<button
+onclick="cambiarCarrito(${item.id},-1)">
+−
+</button>
+
+<span>
+${item.cantidad}
+</span>
+
+<button
+onclick="cambiarCarrito(${item.id},1)">
++
+</button>
+
+<button
+class="eliminar"
+onclick="eliminarProducto(${item.id})">
+×
+</button>
+
+</div>
+
+<p style="
+margin-top:7px;
+font-weight:bold;">
+
+Subtotal:
+$${subtotal.toLocaleString()} MXN
+
+</p>
+
+`;
+
+contenedor.appendChild(div);
+
+});
+
+}
+
+
+contador.textContent=
+totalCantidad;
+
+document.getElementById(
+"total"
+).textContent=
+"$"+total.toLocaleString()+" MXN";
+
+}
+
+
+/* =========================================
+   CARRITO
+========================================= */
+
+function abrirCarrito(){
+
+document
+.getElementById("carrito")
+.classList.add("abierto");
+
+}
+
+
+function cerrarCarrito(){
+
+document
+.getElementById("carrito")
+.classList.remove("abierto");
+
+}
+
+
+function cambiarCarrito(id,cambio){
+
+const item=
+carrito.find(
+p=>p.id===id
+);
+
+if(!item)return;
+
+item.cantidad+=cambio;
+
+if(item.cantidad<=0){
+
+carrito=
+carrito.filter(
+p=>p.id!==id
+);
+
+}
+
+actualizarCarrito();
+
+}
+
+
+function eliminarProducto(id){
+
+carrito=
+carrito.filter(
+p=>p.id!==id
+);
+
+actualizarCarrito();
+
+}
+
+
+/* =========================================
+   CHECKOUT
+========================================= */
+
+function abrirCheckout(){
+
+if(carrito.length===0){
+
+alert(
+"Agrega al menos un producto al carrito."
+);
+
+return;
+
+}
+
+
+const resumen=
+document.getElementById("resumen");
+
+let html="";
+let total=0;
+
+
+carrito.forEach(item=>{
+
+const subtotal=
+item.menudeo*item.cantidad;
+
+total+=subtotal;
+
+
+html+=`
+
+<div class="resumen-linea">
+
+<span>
+${item.nombre}
+× ${item.cantidad}
+</span>
+
+<strong>
+$${subtotal.toLocaleString()}
+</strong>
+
+</div>
+
+`;
+
+});
+
+
+html+=`
+
+<div style="
+display:flex;
+justify-content:space-between;
+padding-top:15px;
+font-size:20px;
+font-weight:bold;">
+
+<span>
+Total
+</span>
+
+<span>
+$${total.toLocaleString()} MXN
+</span>
+
+</div>
+
+`;
+
+
+resumen.innerHTML=html;
+
+
+document.getElementById(
+"checkout"
+).style.display="block";
+
+
+cerrarCarrito();
+
+}
+
+
+/* =========================================
+   CERRAR CHECKOUT
+========================================= */
+
+function cerrarCheckout(){
+
+document.getElementById(
+"checkout"
+).style.display="none";
+
+}
+
+
+/* =========================================
+   ENVIAR PEDIDO
+========================================= */
+
+function enviarPedido(e){
+
+e.preventDefault();
+
+
+const nombre=
+document.getElementById(
+"cliente"
+).value;
+
+const telefono=
+document.getElementById(
+"telefono"
+).value;
+
+const observaciones=
+document.getElementById(
+"observaciones"
+).value;
+
+
+let mensaje=
+"Hola, quiero realizar el siguiente pedido:%0A%0A";
+
+let total=0;
+
+
+carrito.forEach(item=>{
+
+const subtotal=
+item.menudeo*item.cantidad;
+
+total+=subtotal;
+
+
+mensaje+=
+"• "+
+item.nombre+
+" | Cantidad: "+
+item.cantidad+
+" | Precio: $"+
+item.menudeo+
+" | Subtotal: $"+
+subtotal+
+"%0A";
+
+});
+
+
+mensaje+=
+"%0ATotal aproximado: $"+
+total+
+" MXN";
+
+
+mensaje+=
+"%0A%0ANombre: "+
+encodeURIComponent(nombre);
+
+
+mensaje+=
+"%0ATeléfono: "+
+encodeURIComponent(telefono);
+
+
+if(observaciones){
+
+mensaje+=
+"%0AObservaciones: "+
+encodeURIComponent(observaciones);
+
+}
+
+
+/*
+=========================================
+CAMBIA ESTE NÚMERO POR EL WHATSAPP
+DEL CLIENTE
+=========================================
+*/
+
+const telefonoNegocio=
+"523221340289";
+
+
+window.open(
+
+"https://wa.me/"+
+telefonoNegocio+
+"?text="+mensaje,
+
+"_blank"
+
+);
+
+}
+
+
+/* =========================================
+   MÚSICA
+========================================= */
+
+const musica=
+document.getElementById("musica");
+
+const botonMusica=
+document.getElementById("botonMusica");
+
+
+function controlarMusica(){
+
+if(musica.paused){
+
+musica.play();
+
+botonMusica.innerHTML=
+"❚❚ Pausar música";
+
+botonMusica.classList.add(
+"activo"
+);
+
+}else{
+
+musica.pause();
+
+botonMusica.innerHTML=
+"♫ Música";
+
+botonMusica.classList.remove(
+"activo"
+);
+
+}
+
+}
+
+
+/* =========================================
+   INICIAR
+========================================= */
+
+mostrarProductos();
+
+</script>
+
+</body>
+</html>
+```
